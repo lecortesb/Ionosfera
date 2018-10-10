@@ -8,7 +8,7 @@ import java.io.*;
 
 /**
  *
- * @author LASALLE
+ * @author THE MONGREL
  */
 public class TEC {
 
@@ -20,7 +20,7 @@ public class TEC {
         int datos[],posEs,i;
         datos=new int[73];
         try{
-            BufferedReader lector=new BufferedReader(new FileReader("E:\\datos\\045\\jplg0450.14i\\datos.14i"));
+            BufferedReader lector=new BufferedReader(new FileReader("D:\\datos\\045\\jplg0450.14i\\datos.14i"));
             do{
                 do{
                     cadena=lector.readLine();
@@ -28,31 +28,42 @@ public class TEC {
                 }while(cadena != null && cadena.contains("START OF TEC MAP") == false);
                 cadena=lector.readLine();
                 if(cadena !=null){
-                    System.out.println(""+cadena);
+                    //System.out.println(""+cadena);
                 }
+                //Ya se quito el renglón de la fecha
                 cadena=lector.readLine();
                 if(cadena !=null){
                     System.out.println(""+cadena);
                 }
-                cadena=lector.readLine();//datos
-                if(cadena !=null){
-                    for(i=0;i<15;i++){
-                        while(cadena.charAt(0)==' '){
+                //do{//Ya se quito el renglon de la latitud y la longitud
+                    cadena=lector.readLine();//datos
+                    if(cadena !=null){
+                        i=0;
+                        posEs=0;
+                        while(cadena.charAt(0)==' '){//Quita los espacios del principio
                             cadena=cadena.substring(1);
                         }
-                        posEs=cadena.indexOf(" ",0);
-                        //System.out.println(""+posEs);
-                        sub=cadena.substring(0,posEs);
-                        datos[i]=Integer.parseInt(sub);
+                        while(cadena.indexOf(" ", 0)!=-1){
+                            //for(i=0;i<15;i++){
+                            posEs=cadena.indexOf(" ",0);
+                            //System.out.println(""+posEs);
+                            sub=cadena.substring(0,posEs);
+                            datos[i]=Integer.parseInt(sub);
+                            System.out.println(""+datos[i]);
+                            cadena=cadena.substring(posEs, cadena.length());
+                            while(cadena.charAt(0)==' '){//Quita los espacios del principio de la siguiente iteracion
+                                cadena=cadena.substring(1);
+                            }
+                         i++;
+                        }
+                         /*while(cadena.charAt(0)==' '){
+                            cadena=cadena.substring(1);
+                        }*/
+                        datos[i]=Integer.parseInt(cadena);
                         System.out.println(""+datos[i]);
-                        cadena=cadena.substring(posEs, cadena.length());
+                        i++;
                     }
-                    while(cadena.charAt(0)==' '){
-                        cadena=cadena.substring(1);
-                    }
-                    datos[i]=Integer.parseInt(cadena);
-                    System.out.println(""+datos[i]);
-                }
+                //}while(cadena!=null&&cadena.contains("LAT/LON1")==false);
             }while(cadena!=null);
             lector.close();
         }
