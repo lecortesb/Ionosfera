@@ -17,9 +17,9 @@ public class TEC {
      */
     public static void main(String[] args) {
         String cadena,sub;
-        int datos[][],posEs,i,j;
+        int datos[][][],posEs,i,j,k;
         double lat=87.5;
-        datos=new int[71][73];
+        datos=new int[13][71][73];
         int año,mes,dia,hr,min,seg;
         año=2014;
         mes=2;
@@ -29,6 +29,9 @@ public class TEC {
         seg=0;
         try{
             BufferedReader lector=new BufferedReader(new FileReader("E:\\datos\\045\\jplg0450.14i\\datos.14i"));
+            k=0;
+            do{
+                System.out.println("K="+k);
             do{
                 cadena=lector.readLine();
                 //System.out.println(""+cadena);
@@ -63,8 +66,8 @@ public class TEC {
                             posEs=cadena.indexOf(" ",0);
                             //System.out.println(""+posEs);
                             sub=cadena.substring(0,posEs);
-                            datos[j][i]=Integer.parseInt(sub);
-                            System.out.print(";"+datos[j][i]);
+                            datos[k][j][i]=Integer.parseInt(sub);
+                            System.out.print(";"+datos[k][j][i]);
                             cadena=cadena.substring(posEs, cadena.length());
                             while(cadena.charAt(0)==' '){//Quita los espacios del principio de la siguiente iteracion
                                 cadena=cadena.substring(1);
@@ -74,8 +77,8 @@ public class TEC {
                          /*while(cadena.charAt(0)==' '){
                             cadena=cadena.substring(1);
                         }*/
-                        datos[j][i]=Integer.parseInt(cadena);
-                        System.out.print(";"+datos[j][i]);
+                        datos[k][j][i]=Integer.parseInt(cadena);
+                        System.out.print(";"+datos[k][j][i]);
                         i++;
                     }
                     cadena=lector.readLine();
@@ -84,16 +87,23 @@ public class TEC {
                 j++;
                 System.out.println("*j="+(j-1)+"i="+i);
             }while(cadena!=null&&cadena.contains("END")==false&&j<71);
+            k++;
+            }while(cadena!=null);
             lector.close();
-            System.out.println("latitud final:"+lat);
+            //System.out.println("latitud final:"+lat);
             
             System.out.println("Inicio del arreglo");
-            for(j=0;j<71;j++){
-                System.out.println("");
-                for(i=0;i<73;i++){
-                    System.out.print(","+datos[j][i]);
+            for(k=0;k<13;k++,hr=hr+2){
+                System.out.println("Hora="+hr+" min="+min+" seg="+seg);
+                for(j=0;j<71;j++){
+                    System.out.println("Latitud="+(87.5-(2.5*j)));
+                    for(i=0;i<73;i++){
+                        System.out.print(","+datos[k][j][i]);
+                    }
+                    System.out.println("");
                 }
             }
+            //El último renglón es el primer renglón del siguiente día
         }
         catch(FileNotFoundException e){
             System.out.println("Archivo no encontrado");
