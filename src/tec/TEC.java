@@ -21,6 +21,7 @@ public class TEC {
         double lat=87.5;
         datos=new int[13][71][73];
         int año,mes,dia,hr,min,seg;
+        boolean ban=false;
         año=2014;
         mes=2;
         dia=14;
@@ -107,9 +108,33 @@ public class TEC {
         }
         catch(FileNotFoundException e){
             System.out.println("Archivo no encontrado");
+            ban=true;
         }
         catch(IOException ee){
             System.out.println("Algo raro pasó al leer el archivo");
+            ban=true;
+        }
+        
+        if (ban==false){
+            try{
+                BufferedWriter escritor=new BufferedWriter(new FileWriter("E:\\datos\\BBDD.csv"));
+                escritor.write("year,month,day,hr,min,seg,lat,lon,TEC");
+                for(k=0;k<12;k++){
+                    for(j=0;j<71;j++){
+                        for(i=0;i<73;i++){
+                            escritor.newLine();
+                            escritor.write(año+","+mes+","+dia+","+(0+(k*2))+","+min+","+seg+","+(87.5-(2.5*j))+","+(-180+(5*i))+","+datos[k][j][i]);
+                        }
+                    }
+                }
+                escritor.close();
+            }
+            catch(FileNotFoundException e){
+                System.out.println("\nError no esperado");
+            }
+            catch(IOException ee){
+                System.out.println("\nNo se pudo crear el archivo");
+            }
         }
     }
     
