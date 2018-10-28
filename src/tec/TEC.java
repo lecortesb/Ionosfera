@@ -24,12 +24,12 @@ public class TEC {
         boolean ban=false;
         año=2014;
         mes=2;
-        dia=14;
+        dia=21;
         hr=0;
         min=0;
         seg=0;
         try{
-            BufferedReader lector=new BufferedReader(new FileReader("E:\\datos\\045\\jplg0450.14i\\datos.14i"));
+            BufferedReader lector=new BufferedReader(new FileReader("D:\\datos2\\jplg0520.14i\\jplg0520.14i"));
             k=0;
             do{
                 System.out.println("K="+k);
@@ -117,7 +117,7 @@ public class TEC {
         
         if (ban==false){
             try{
-                BufferedWriter escritor=new BufferedWriter(new FileWriter("E:\\datos\\BBDD.csv"));
+                BufferedWriter escritor=new BufferedWriter(new FileWriter("D:\\datos\\BBDD52.csv"));
                 escritor.write("year,month,day,hr,min,seg,lat,lon,TEC");
                 for(k=0;k<12;k++){
                     for(j=0;j<71;j++){
