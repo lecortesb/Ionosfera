@@ -11,20 +11,97 @@ import java.io.*;
  * @author THE MONGREL
  */
 public class TEC {
-
+   
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+    }
+    
+    void proceso(int a,int d){
         String cadena,sub;
         int datos[][][],posEs,i,j,k;
         double lat=87.5;
         datos=new int[13][71][73];
-        int año,mes,dia,hr,min,seg;
-        boolean ban=false;
-        año=2014;
-        mes=2;
-        dia=21;
+        int año,mes,dia,hr,min,seg,feb;
+        boolean ban=false,bisiesto=false;
+        año=a;
+        if(año%4==0){
+            bisiesto=true;
+            feb=29;
+        }
+        else{
+            feb=28;
+        }
+        if(d<=31){
+            dia=d;
+            mes=1;
+        }
+        else{
+                if(31<d&&d<=31+feb){
+                    mes=2;
+                    dia=d-31;
+                }
+                else{
+                    if(31+feb<d&&d<=31+feb+31){
+                        mes=3;
+                        dia=d-(31+feb);
+                    }
+                    else{
+                        if(31+feb+31<d&&d<=31+feb+31+30){
+                            mes=4;
+                            dia=d-(31+feb+31);
+                        }
+                        else{
+                            if(31+feb+31+30<d&&d<=31+feb+31+30+31){
+                                mes=5;
+                                dia=d-(31+feb+31+30);
+                            }
+                            else{
+                                if(31+feb+31+30+31<d&&d<=31+feb+31+30+31+30){
+                                    mes=6;
+                                    dia=d-(31+feb+31+30+31);
+                                }
+                                else{
+                                    if(31+feb+31+30+31+30<d&&d<=31+feb+31+30+31+30+31){
+                                        mes=7;
+                                        dia=d-(31+feb+31+30+31+30);
+                                    }
+                                    else{
+                                        if(31+feb+31+30+31+30+31<d&&d<=31+feb+31+30+31+30+31+31){
+                                            mes=8;
+                                            dia=d-(31+feb+31+30+31+30+31);
+                                        }
+                                        else{
+                                            if(31+feb+31+30+31+30+31+31<d&&d<=31+feb+31+30+31+30+31+31+30){
+                                                mes=9;
+                                                dia=d-(31+feb+31+30+31+30+31+31);
+                                            }
+                                            else{
+                                                if(31+feb+31+30+31+30+31+31+30<d&&d<=31+feb+31+30+31+30+31+31+30+31){
+                                                    mes=10;
+                                                    dia=d-(31+feb+31+30+31+30+31+31+30);
+                                                }
+                                                else{
+                                                    if(31+feb+31+30+31+30+31+31+30+31<d&&d<=31+feb+31+30+31+30+31+31+30+31+30){
+                                                        mes=11;
+                                                        dia=d-(31+feb+31+30+31+30+31+31+30+31);
+                                                    }
+                                                    else{
+                                                        mes=12;
+                                                        dia=d-(31+feb+31+30+31+30+31+31+30+31+30);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+        }
         hr=0;
         min=0;
         seg=0;
