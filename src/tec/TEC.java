@@ -5,6 +5,7 @@
  */
 package tec;
 import java.io.*;
+import java.util.Scanner;
 
 /**
  *
@@ -16,16 +17,29 @@ public class TEC {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        int año,d,i;
+        Scanner entrada=new Scanner(System.in);
+        System.out.println("Escriba el año que desea guardar");
+        año=entrada.nextInt();
+        if(año%4==0){
+            d=366;
+        }
+        else{
+            d=365;
+        }
+        for(i=1;i<=d;i++){
+            proceso(año,i);
+        }
         
     }
     
-    void proceso(int a,int d){
+    public static void proceso(int a,int d){
         String cadena,sub;
         int datos[][][],posEs,i,j,k;
         double lat=87.5;
         datos=new int[13][71][73];
         int año,mes,dia,hr,min,seg,feb;
-        boolean ban=false,bisiesto=false;
+        boolean ban=false,bisiesto=false,nuevoarchivo;
         año=a;
         if(año%4==0){
             bisiesto=true;
@@ -106,7 +120,15 @@ public class TEC {
         min=0;
         seg=0;
         try{
-            BufferedReader lector=new BufferedReader(new FileReader("D:\\datos2\\jplg0520.14i\\jplg0520.14i"));
+            String dd="";
+            if(dia<10){
+                dd=dd+"0";
+            }
+            if(dia<100){
+                dd=dd+"0";
+            }
+            System.out.println("Archivo a buscar:E:\\"+año+"\\jplg"+dd+d+"0.14i\\jplg"+dd+d+"0.14i");
+            BufferedReader lector=new BufferedReader(new FileReader("E:\\"+año+"\\jplg"+dd+d+"0.14i\\jplg"+dd+d+"0.14i"));
             k=0;
             do{
                 System.out.println("K="+k);
@@ -193,9 +215,27 @@ public class TEC {
         }
         
         if (ban==false){
+            nuevoarchivo=false;
+            BufferedReader lector2;
             try{
-                BufferedWriter escritor=new BufferedWriter(new FileWriter("D:\\datos\\BBDD52.csv"));
-                escritor.write("year,month,day,hr,min,seg,lat,lon,TEC");
+                lector2=new BufferedReader(new FileReader("E:\\datos\\BBDD"+año+".csv"));
+                lector2.close();
+            }
+            catch(FileNotFoundException e){
+                nuevoarchivo=true;
+            }
+            catch(IOException eee){
+            }
+            try{
+                BufferedWriter escritor;
+                if(nuevoarchivo){
+                    escritor=new BufferedWriter(new FileWriter("E:\\datos\\BBDD"+año+".csv"));
+                    escritor.write("year,month,day,hr,min,seg,lat,lon,TEC");
+                }
+                else{
+                    escritor=new BufferedWriter(new FileWriter("E:\\datos\\BBDD"+año+".csv",true));
+                }
+                
                 for(k=0;k<12;k++){
                     for(j=0;j<71;j++){
                         for(i=0;i<73;i++){
