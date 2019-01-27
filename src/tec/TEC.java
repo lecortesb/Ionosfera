@@ -121,17 +121,17 @@ public class TEC {
         seg=0;
         try{
             String dd="";
-            if(dia<10){
+            if(d<10){
                 dd=dd+"0";
             }
-            if(dia<100){
+            if(d<100){
                 dd=dd+"0";
             }
-            System.out.println("Archivo a buscar:E:\\"+año+"\\jplg"+dd+d+"0.14i\\jplg"+dd+d+"0.14i");
-            BufferedReader lector=new BufferedReader(new FileReader("E:\\"+año+"\\jplg"+dd+d+"0.14i\\jplg"+dd+d+"0.14i"));
+            System.out.println("Archivo a buscar:D:\\"+año+"\\jplg"+dd+d+"0."+año%100+"i\\jplg"+dd+d+"0."+año%100+"i");
+            BufferedReader lector=new BufferedReader(new FileReader("D:\\"+año+"\\jplg"+dd+d+"0."+año%100+"i\\jplg"+dd+d+"0."+año%100+"i"));
             k=0;
             do{
-                System.out.println("K="+k);
+                //System.out.println("K="+k);///////////////////////////////////
             do{
                 cadena=lector.readLine();
                 //System.out.println(""+cadena);
@@ -149,7 +149,7 @@ public class TEC {
             i=0;
             j=0;
             do{
-                System.out.println(""+cadena);
+                //System.out.println(""+cadena);/////////////////////////////////////////////////////////////////////
                 cadena=lector.readLine();//Primera linea de datos
                 i=0;
                 while(cadena!=null&&cadena.contains("LAT")==false&&cadena.contains("END")==false){//Ya se quito el renglon de la latitud y la longitud
@@ -167,7 +167,7 @@ public class TEC {
                             //System.out.println(""+posEs);
                             sub=cadena.substring(0,posEs);
                             datos[k][j][i]=Integer.parseInt(sub);
-                            System.out.print(";"+datos[k][j][i]);
+                            //System.out.print(";"+datos[k][j][i]);////////////////////////////////////////////////////
                             cadena=cadena.substring(posEs, cadena.length());
                             while(cadena.charAt(0)==' '){//Quita los espacios del principio de la siguiente iteracion
                                 cadena=cadena.substring(1);
@@ -178,29 +178,29 @@ public class TEC {
                             cadena=cadena.substring(1);
                         }*/
                         datos[k][j][i]=Integer.parseInt(cadena);
-                        System.out.print(";"+datos[k][j][i]);
+                        //System.out.print(";"+datos[k][j][i]);///////////////////////////////////////////////////////////
                         i++;
                     }
                     cadena=lector.readLine();
                 }
                 lat=lat-2.5;
                 j++;
-                System.out.println("*j="+(j-1)+"i="+i);
+                //System.out.println("*j="+(j-1)+"i="+i);///////////////////////////////////////////////////////////////////
             }while(cadena!=null&&cadena.contains("END")==false&&j<71);
             k++;
             }while(cadena!=null);
             lector.close();
             //System.out.println("latitud final:"+lat);
             
-            System.out.println("Inicio del arreglo");
+            //System.out.println("Inicio del arreglo");////////////////////////////////////////////////////////////////////
             for(k=0;k<13;k++,hr=hr+2){
-                System.out.println("Hora="+hr+" min="+min+" seg="+seg);
+                //System.out.println("Hora="+hr+" min="+min+" seg="+seg);////////////////////////////////////////////////
                 for(j=0;j<71;j++){
-                    System.out.println("Latitud="+(87.5-(2.5*j)));
+                    //System.out.println("Latitud="+(87.5-(2.5*j)));///////////////////////////////////////////////////
                     for(i=0;i<73;i++){
-                        System.out.print(","+datos[k][j][i]);
+                        //System.out.print(","+datos[k][j][i]);///////////////////////////////////////////
                     }
-                    System.out.println("");
+                    //System.out.println("");//////////////////////////////////////////////////////
                 }
             }
             //El último renglón es el primer renglón del siguiente día
@@ -218,7 +218,7 @@ public class TEC {
             nuevoarchivo=false;
             BufferedReader lector2;
             try{
-                lector2=new BufferedReader(new FileReader("E:\\datos\\BBDD"+año+".csv"));
+                lector2=new BufferedReader(new FileReader("D:\\datos\\BBDD"+año+".csv"));
                 lector2.close();
             }
             catch(FileNotFoundException e){
@@ -229,11 +229,11 @@ public class TEC {
             try{
                 BufferedWriter escritor;
                 if(nuevoarchivo){
-                    escritor=new BufferedWriter(new FileWriter("E:\\datos\\BBDD"+año+".csv"));
+                    escritor=new BufferedWriter(new FileWriter("D:\\datos\\BBDD"+año+".csv"));
                     escritor.write("year,month,day,hr,min,seg,lat,lon,TEC");
                 }
                 else{
-                    escritor=new BufferedWriter(new FileWriter("E:\\datos\\BBDD"+año+".csv",true));
+                    escritor=new BufferedWriter(new FileWriter("D:\\datos\\BBDD"+año+".csv",true));
                 }
                 
                 for(k=0;k<12;k++){
